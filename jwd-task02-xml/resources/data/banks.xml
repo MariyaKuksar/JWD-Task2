@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<banks xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.example.com/banks"
+	xsi:schemaLocation="http://www.example.com/banks banks.xsd">
+	<bank name="Priorbank" country="Belarus">
+		<revocable-deposit>
+			<depositor>Ivanov Ivan</depositor>
+			<account-id>BY05PJCB30140930081000608840</account-id>
+			<opening-data>2020-10-01T13:40:00</opening-data>
+			<currency>USD</currency>
+			<amount>5000</amount>
+			<profitability>0.01</profitability>
+			<term-deposit>6</term-deposit>
+		</revocable-deposit>
+		<irrevocable-deposit>
+			<depositor>Sidorov Petr</depositor>
+			<account-id>BY05PJCB30140930081000608933</account-id>
+			<opening-data>2020-06-25T10:16:00</opening-data>
+			<currency>BYN</currency>
+			<amount>13000</amount>
+			<profitability>13</profitability>
+			<term-deposit>12</term-deposit>
+			<closing-data>2021-06-25T10:16:00</closing-data>
+		</irrevocable-deposit>
+	</bank>
+</banks>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.example.com/banks"
+	xmlns:tns="http://www.example.com/banks" elementFormDefault="qualified">
+
+	<element name="banks">
+		<complexType>
+			<sequence>
+				<element name="bank" type="tns:Bank" minOccurs="1"
+					maxOccurs="unbounded" />
+			</sequence>
+		</complexType>
+	</element>
+
+	<complexType name="Bank">
+		<sequence>
+			<element ref="tns:deposit" maxOccurs="unbounded" />
+		</sequence>
+		<attribute name="name" use="required">
+			<simpleType>
+				<restriction base="string">
+				</restriction>
+			</simpleType>
+		</attribute>
+		<attribute name="country" use="optional" default="Belarus">
+			<simpleType>
+				<restriction base="string">
+				</restriction>
+			</simpleType>
+		</attribute>
+	</complexType>
+
+	<element name="deposit" type="tns:Deposit" abstract="true" />
+
+	<element name="revocable-deposit" type="tns:Deposit"
+		substitutionGroup="tns:deposit" />
+
+	<element name="irrevocable-deposit"
+		type="tns:Irrevocable-deposit" substitutionGroup="tns:deposit" />
+
+	<complexType name="Deposit">
+		<sequence>
+			<element name="depositor" type="string" />
+			<element name="account-id" type="tns:Account-id" />
+			<element name="opening-data" type="dateTime" />
+			<element name="currency" type="tns:Currency" />
+			<element name="amount" type="tns:Amount" />
+			<element name="profitability" type="tns:Profitability" />
+			<element name="term-deposit" type="positiveInteger" />
+		</sequence>
+	</complexType>
+
+	<simpleType name="Account-id">
+		<restriction base="ID">
+			<pattern value="BY\d{2}[A-Z]{4}\d{20}" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Currency">
+		<restriction base="string">
+			<enumeration value="BYN"></enumeration>
+			<enumeration value="USD"></enumeration>
+			<enumeration value="EUR"></enumeration>
+			<enumeration value="RUB"></enumeration>
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Amount">
+		<restriction base="double">
+			<minInclusive value="50" />
+		</restriction>
+	</simpleType>
+
+	<simpleType name="Profitability">
+		<restriction base="double">
+			<minExclusive value="0" />
+			<maxInclusive value="100" />
+		</restriction>
+	</simpleType>
+
+	<complexType name="Irrevocable-deposit">
+		<complexContent>
+			<extension base="tns:Deposit">
+				<sequence>
+					<element name="closing-data" type="dateTime" />
+				</sequence>
+			</extension>
+		</complexContent>
+	</complexType>
+</schema>
+
